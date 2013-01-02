@@ -1,0 +1,24 @@
+#!/usr/bin/env node
+
+var uuencode = require ('../lib/uuencode');
+var fs = require('fs')
+var optimist = require('optimist');
+
+function uudecode(infile, outfile){
+    var offs = fs.createWriteStream(outfile);
+    var infs = fs.createReadStream(infile)
+	.on('open', function (){
+	    infs.pipe(new uuencode({decoder: false}))
+		.pipe(offs);
+	})
+    };
+
+var opt = optimist
+    .usage ('Usage: in out')
+    .argv;
+
+if (opt._.length != 2) {
+    optimist.showHelp()
+} else {
+    uudecode.apply(this, opt._);
+};
