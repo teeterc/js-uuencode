@@ -22,7 +22,7 @@ function test(){
 	.on('open', function (){
 	    infs
 		.pipe(new uuencode({encoder: true}))
-		.on('data', function (data){
+		.on('data', function (d){
 		})
 		.pipe(new uuencode({decoder: true}))
 		.on('data', function (d){
